@@ -30,14 +30,14 @@ This may need to be updated to save manually if it isn’t working well, there i
 ### Record timing of audio prompts and/or tactor buzzing in eyetracking log
 If in the future analysis looking at response times is conducted then the variable onset time needs to be taken into account and it would be worthwhile recording (via eye tracking event) when the audio finishes. 
 E.g. imagine two trials. First: trial starts, the tactors buzz for exactly one second (during which time a response cannot be made) and then the participant makes a look to the jellyfish (or looks to the jellyfish during the second of buzzing). Second: trial starts, prompt audio plays with a variable duration, the tactors then buzz for exactly one second. The participant then looks to one or has already looked at one or the other.
-This presents the possibility for a range of exciting new analysis questions:
+This presents the possibility for a range of exciting new analysis questions:<br />
   1.	Do participants look to the correct jellyfish during the buzzing?
     a.	If so, is there a temporal difference between groups?
-  2.	Do participants change their fixation direction while the jellyfish are buzzing?
+  2.	Do participants change their fixation direction while the jellyfish are buzzing?<br />
     a.	This could be an issue if they look to the correct jellyfish and then look at the other for novelty. This could be recorded as an incorrect response.
   3.	Does having the audio prompt mean that participant fixation is not in the centre of the screen (which would have been drawn originally by the starfish)?
-  4.	Do participants look to specific jellyfish during the audio prompts?
-    a.	I.e. if by chance a jellyfish has had more correct responses overall, or more recent correct responses do participants favour looking at that jellyfish?
+  4.	Do participants look to specific jellyfish during the audio prompts?<br />
+    a.	I.e. if by chance a jellyfish has had more correct responses overall, or more recent correct responses do participants favour looking at that jellyfish?<br />
     b.	Are there any group differences in this respect?
 <!-- end of the list -->
 As a result, if we want to look at these, we need to send events at the start and end of the buzzing and the audio prompts. This wouldn’t be difficult, events are already sent to the eyetracking log, it would just mean adding in more events.
@@ -55,13 +55,13 @@ The script allows you to adjust several settings before running the tactile disc
 -	**run_filler** (true/false): Play filler movies before/after task. Example: true
 -	**trials_between_reward** (number): Number of trials between reward sounds. Example: 2
 -	**trials_between_prompt** (number): Number of trials between audio prompts. Example: 3
-    o	Note: the number of trials between reward and prompt should be offset so that the reward and prompt audio aren’t always played together.
+    - Note: the number of trials between reward and prompt should be offset so that the reward and prompt audio aren’t always played together.
 <!-- end of the list -->
 ### Visual Settings
 -	**show_preview** (true/false): Display preview screen for the researcher trials. Example: true
 -	**bg_video_name** (string): Filename of background video. Example: 'ocean_vid.mp4'
 -	**reward_video_name** (string): Filename of reward animation. Example: 'star_animation.mp4'
-    o	This has only been used in the training steps.
+    - This has only been used in the training steps.
 -	**bg_opacity** (number, 0–1): Transparency of background video to help the jellyfish appear more visually salient and distinguishable. Example: 0.6
 -	**reward_video_duration** (number): Duration of reward video in seconds. Example: 8
 <!-- end of the list -->
@@ -73,16 +73,16 @@ The script allows you to adjust several settings before running the tactile disc
 ### Audio Settings
 -	**main_audio_device** (string): Name of the main audio output device. This is the audio devide that plays the background sounds, not the tactor audio device (see Tactor settings). Example: 'SB Omni Surround'
 -	**bg_audio_name** (string): Background audio filename. Example: 'bicycle.wav'
-    o	Other background sounds included are ‘Ending.mp3’ and ‘Poupis_Theme.mp3’. These may need to be converted to .wav.
+    -	Other background sounds included are ‘Ending.mp3’ and ‘Poupis_Theme.mp3’. These may need to be converted to .wav.
 <!-- end of the list -->
 ### Tactor Settings
 -	**num_tactors** (number): Number of tactors active. Example: 2
-    o	If 1 tactor is chosen then the left tactor should play only. If 0 tactors is chosen then the system should play as normal just without the buzzing.
+    - If 1 tactor is chosen then the left tactor should play only. If 0 tactors is chosen then the system should play as normal just without the buzzing.
 -	**tactor_audio_device** (string): Device name for tactor audio. Example: 'External Headphones'
 -	**buzz_duration** (number, seconds): Duration of tactor stimulus. Example: 1
 -	**stim_hz** (whole number, Hz): Frequency/intensity of stimulus. Example: 220
 -	**intensity_range** (number array): Range of volume intensities. Example: 0.5:0.05:5
-    o	When changing the intensity range these should be tested to make sure that the intensities can be distinguished.
+    - When changing the intensity range these should be tested to make sure that the intensities can be distinguished.
 -	**baseline_intensity** (number): Used as the intensity for the baseline tactor. One tactor will always be this intensity and the difference between this and the other tactor is what is being tested. Example: 0.5
 -	**trial_pause** (true/false): Insert pause before tactor buzz. Example: true
 -	**trial_pause_duration** (number, seconds): Duration of pre-buzz pause. Example: 1
@@ -129,20 +129,20 @@ If enabled, a training block is run (see run_training_block_v2 function below):
 #### 7. Main Trial Loop
 The main trials proceed as below. At any point the researcher can press tab to request a reward video or escape to end the trials and move onto a filler video.
   1.	Video Playback: Background video frames are drawn continuously on both main and preview screens. This is put first so if the rest of the logic is paused then the background video will continue playing.
-  2.	Fixation / Starfish Phase:
-    a.	A rotating starfish appears while attention sounds prompt the participant.
+  2.	Fixation / Starfish Phase:<br />
+    a.	A rotating starfish appears while attention sounds prompt the participant.<br />
     b.	The trial begins when the researcher presses the down arrow key. If a trial start pause has been requested then a timer is started 
-  3.	Trial Start:
-    a.	Jellyfish stimuli are displayed on screen moving (visual buzz) when tactors are buzzing.
-    b.	Tactor stimuli are played if available (see play_tactor_stim function below).
-      c.	Audio prompts or rewards are triggered based on the trial number.
-  4.	Response Collection:
-    a.	The researcher responds with left or right arrow keys to indicate stimulus responses.
-    b.	Correctness is recorded, and stimulus difficulty is adapted accordingly with two correct responses needed for the difficulty to increase (see is_tact_resp_correct function below)
-    c.	Reward videos or sounds are played when appropriate.
+  3.	Trial Start:<br />
+    a.	Jellyfish stimuli are displayed on screen moving (visual buzz) when tactors are buzzing.<br />
+    b.	Tactor stimuli are played if available (see play_tactor_stim function below).<br />
+    c.	Audio prompts or rewards are triggered based on the trial number.
+  4.	Response Collection:<br />
+    a.	The researcher responds with left or right arrow keys to indicate stimulus responses.<br />
+    b.	Correctness is recorded, and stimulus difficulty is adapted accordingly with two correct responses needed for the difficulty to increase (see is_tact_resp_correct function below)<br />
+    c.	Reward videos or sounds are played when appropriate.<br />
     d.	If a filler video/animation has been requested then plays a short animation. These are used to grab the participant’s attention (see play_filler_short_animation function below).
-  5.	Adaptive Updates:
-    a.	Intensities of the tactile stimuli are adjusted based on previous trial performance to maintain task challenge.
+  5.	Adaptive Updates:<br />
+    a.	Intensities of the tactile stimuli are adjusted based on previous trial performance to maintain task challenge.<br />
     b.	Trial tracking variables are updated.
 <!-- end of the list -->
 Researchers can request a reward video at any point using the TAB key. The system pauses the background audio, plays the reward, then resumes.
@@ -196,90 +196,90 @@ Note that this is not used for v5 as the task engine
 -	Validates input against allowed values.
 -	Appends a timestamp to create a unique ID string in the format:
     -	S001_2_2025_Jul_29_15_34_12.
-<!-- end of the list -->
+<!-- end of the list --><br />
 ### setup_jellyfish_visuals.m
 #### Purpose
 Initialises all screen and visual stimulus elements for a jellyfish-themed experimental task. It sets up both the main display and an optional preview window, loads and prepares stimuli (images and videos), and computes all texture handles and screen positions for accurate rendering.
 #### What it Does
 -	**Screen Setup**:
-    o	Opens a full-sized main window and (optionally) a smaller preview window, both with a white background [255, 255, 255]. Enables blending if using transparent images.
+    -	Opens a full-sized main window and (optionally) a smaller preview window, both with a white background [255, 255, 255]. Enables blending if using transparent images.
 -	**Stimulus Pathing**:
-    o	Constructs file paths for background and reward videos, jellyfish images, and a starfish image from a specified root directory.
+    - Constructs file paths for background and reward videos, jellyfish images, and a starfish image from a specified root directory.
 -	**Image Loading and Preparation**:
-    o	Loads image files, applies alpha channels for transparency (if enabled), and resizes them for both main and preview windows.
-    o	To change jellyfish or starfish images you would need to look in the “on screen settings and variables” section.
+    -	Loads image files, applies alpha channels for transparency (if enabled), and resizes them for both main and preview windows.
+    -	To change jellyfish or starfish images you would need to look in the “on screen settings and variables” section.
 -	**Texture Creation**:
-    o	Converts each image into a texture for display using Psychtoolbox’s Screen('MakeTexture').
+    -	Converts each image into a texture for display using Psychtoolbox’s Screen('MakeTexture').
 -	**Positioning**:
-    o	Calculates on-screen coordinates for placing jellyfish and starfish images on both windows, offsetting the jellyfish horizontally by a user-defined value, “offset”.
+    -	Calculates on-screen coordinates for placing jellyfish and starfish images on both windows, offsetting the jellyfish horizontally by a user-defined value, “offset”.
 -	**Text Settings**:
-    o	Prepares text display settings (font, style, colour, size, position) for both main and preview screens.
+    -	Prepares text display settings (font, style, colour, size, position) for both main and preview screens.
 -	**Outputs**:
-    o	Returns all relevant textures, image sizes, positions, screen handles, and paths needed for the main experiment to display visuals consistently.
-<!-- end of the list -->
+    -	Returns all relevant textures, image sizes, positions, screen handles, and paths needed for the main experiment to display visuals consistently.
+<!-- end of the list --><br />
 ### setup_jellyfish_audio.m
 #### Purpose
 Initialises all auditory components for a jellyfish-themed experimental task, including loading audio files, preparing PsychPortAudio devices, and configuring playback handles for background, prompt, attention, and reward sounds.
 #### What it Does
 -	**Loads Audio Files**:
-    o	Scans subdirectories (attention, prompt_audio, and reward_audio) inside the stimulus directory and loads all .wav (or similar) files into structs.
-    o	Fieldnames of each struct correspond to the filenames (minus extension), allowing flexible reference to specific sounds without worrying which format they’re in.
-    o	Files can be removed, replaced or added without breaking the set up.
+    -	Scans subdirectories (attention, prompt_audio, and reward_audio) inside the stimulus directory and loads all .wav (or similar) files into structs.
+    -	Fieldnames of each struct correspond to the filenames (minus extension), allowing flexible reference to specific sounds without worrying which format they’re in.
+    -	Files can be removed, replaced or added without breaking the set up.
 -	**Initialises PsychPortAudio**:
-    o	Activates low-latency audio mode and searches for the target audio device by name.
-    o	If the device isn’t found, it prompts the user with troubleshooting options until the device is connected.
+    -	Activates low-latency audio mode and searches for the target audio device by name.
+    -	If the device isn’t found, it prompts the user with troubleshooting options until the device is connected.
 -	**Sets Up Audio Handles**:
-    o	Opens a master audio handle that governs all audio playback for everything that isn’t tactor related.
-    o	Opens a slave handle for background audio, loads and prepares the looping track specified by bg_audio_name.
-    o	Opens another slave handle for prompt/reward audio, allowing sounds to be layered over background audio. This is also used for attention sounds.
+    -	Opens a master audio handle that governs all audio playback for everything that isn’t tactor related.
+    -	Opens a slave handle for background audio, loads and prepares the looping track specified by bg_audio_name.
+    -	Opens another slave handle for prompt/reward audio, allowing sounds to be layered over background audio. This is also used for attention sounds.
 -	**Returns**:
-    o	All audio structs and their fieldnames.
-    o	PsychPortAudio handles for background, master, and prompt/reward streams.
-    o	The audio device index for reference or debugging.
-<!-- end of the list -->
+    -	All audio structs and their fieldnames.
+    -	PsychPortAudio handles for background, master, and prompt/reward streams.
+    -	The audio device index for reference or debugging.
+<!-- end of the list --><br />
 ### setup_jellyfish_tactors.m
 #### Purpose
 Initialises the tactile feedback system (tactors) for the experiment. It opens the correct audio device, loads the stimulation waveform, and prepares serial communication with the physical tactor hardware to ensure they're ready for use.
 #### What it Does
 -	**Device Matching**:
-    o	Searches available audio output devices for one matching tactor_audio_device specified by the user.
-    o	Prompts the user to troubleshoot if the device isn’t found (e.g. unplugged or not recognised).
-    o	Currently requires the program to be reset.
+    -	Searches available audio output devices for one matching tactor_audio_device specified by the user.
+    -	Prompts the user to troubleshoot if the device isn’t found (e.g. unplugged or not recognised).
+    -	Currently requires the program to be reset.
 -	**Audio Handle Setup**:
-    o	For 1 tactor, opens a simple mono output using PsychPortAudio.
-    o	For 2 tactors, opens a master/slave stereo configuration, allowing control over both channels separately, which is important for volume/intensity control.
-    o	Ensures the sample rate is set to 44.1 kHz for consistency with pre-generated tones.
+    -	For 1 tactor, opens a simple mono output using PsychPortAudio.
+    -	For 2 tactors, opens a master/slave stereo configuration, allowing control over both channels separately, which is important for volume/intensity control.
+    -	Ensures the sample rate is set to 44.1 kHz for consistency with pre-generated tones.
 -	**Stimulus Loading**:
-    o	Loads a .mat file containing a sine wave tone at the specified frequency (stim_hz) from stim_dir.
-    o	Duplicates the waveform across stereo channels to drive multiple tactors simultaneously.
+    -	Loads a .mat file containing a sine wave tone at the specified frequency (stim_hz) from stim_dir.
+    -	Duplicates the waveform across stereo channels to drive multiple tactors simultaneously.
 -	**Serial Port Communication**:
-    o	Opens a connection to the tactor control unit via the serial port (assumed /dev/cu.usbserial-FTD4RB4J).
-    o	Sends enable commands to activate either one or both tactors, depending on num_tactors.
+    -	Opens a connection to the tactor control unit via the serial port (assumed /dev/cu.usbserial-FTD4RB4J).
+    -	Sends enable commands to activate either one or both tactors, depending on num_tactors.
 -	**Returns**:
-    o	pahandle: the slave audio handle for sending stim tones
-    o	pahandleMaster: the master handle (if using 2 tactors)
-    o	stim: the loaded stereo waveform
-    o	tactors: the serial communication object used to trigger and control physical tactor devices
-<!-- end of the list -->
+    -	pahandle: the slave audio handle for sending stim tones
+    -	pahandleMaster: the master handle (if using 2 tactors)
+    -	stim: the loaded stereo waveform
+    -	tactors: the serial communication object used to trigger and control physical tactor devices
+<!-- end of the list --><br />
 ### setup_jellyfish_EEG.m
 #### Purpose
 This is an optional function (currently set to false and not fully tested). Establishes a connection between the experimental task and NetStation (EGI’s EEG acquisition software), ensuring EEG data recording is initialised and time-synchronised before stimuli presentation begins.
 #### What it Does
 -	**Defines Network Settings**:
-      o	Sets the IP addresses and port numbers for both the host computer and EEG amplifier (ip_host, port_host, ip_amp).
+      -	Sets the IP addresses and port numbers for both the host computer and EEG amplifier (ip_host, port_host, ip_amp).
 -	**Attempts Connection to NetStation**:
-      o	Repeatedly tries to connect to the NetStation server using NetStation('Connect', ...).
-      o	Allows up to 50 attempts (numTries), with a 5-second pause between each (tryWait).
-      o	If all attempts fail, the function throws an error and halts execution.
+      -	Repeatedly tries to connect to the NetStation server using NetStation('Connect', ...).
+      -	Allows up to 50 attempts (numTries), with a 5-second pause between each (tryWait).
+      -	If all attempts fail, the function throws an error and halts execution.
 -	**Synchronisation and Recording**:
-      o	Once connected:
-          ~ Calls NetStation('Synchronize') to align the clocks of the stimulus computer and EEG system.
-          ~ Starts EEG recording using NetStation('StartRecording').
+      -	Once connected:
+          - Calls NetStation('Synchronize') to align the clocks of the stimulus computer and EEG system.
+          - Starts EEG recording using NetStation('StartRecording').
 -	**Error Handling**:
-      o	Each major step checks the returned status and provides detailed error messages if synchronisation or recording fails, helping diagnose connection issues early.
+      -	Each major step checks the returned status and provides detailed error messages if synchronisation or recording fails, helping diagnose connection issues early.
 -	**Returns**:
-      o	This function does not return any output variables; it ensures that the EEG system is ready and synced for the task to proceed.#
-<!-- end of the list -->
+      -	This function does not return any output variables; it ensures that the EEG system is ready and synced for the task to proceed.#
+<!-- end of the list --><br />
 ### setup_jellyfish_eyetracking.m
 #### Purpose
 Initialises the eyetracking setup for the jellyfish experimental task using an ECKPresenter display object and a Tobii Pro eyetracker. Configures display properties, eyetracker connection, data tracking, calibration, and logging before starting the eyetracking session.
@@ -308,76 +308,76 @@ Initialises the eyetracking setup for the jellyfish experimental task using an E
 #### Outputs
 -	pres — The configured ECKPresenter object, containing display and eyetracker settings.
 -	log — An ECKLog object used for recording session-level information.
-<!-- end of the list -->
+<!-- end of the list --><br />
 ### play_filler_movie.m
 #### Purpose
 Plays a looped, muted video with a separate audio stream to entertain infants between trials or while hardware setups are adjusted. Provides an interface for manually selecting from multiple filler videos and supports dual display (main and preview screens).
 #### What it Does
 -	**Movie Selection Interface (if movie_num is 0)**:
-    o	Displays thumbnails of all available filler videos in a grid layout.
-    o	Prompts the experimenter to choose a video via keyboard input.
-    o	Extracts and displays a single frame from each muted video to serve as a preview.
+    -	Displays thumbnails of all available filler videos in a grid layout.
+    -	Prompts the experimenter to choose a video via keyboard input.
+    -	Extracts and displays a single frame from each muted video to serve as a preview.
 -	**Audio/Video Setup**:
-    o	Opens the selected muted video using Screen('OpenMovie').
-    o	Calculates display rectangles for both the main (win) and preview (preview_win) windows to ensure the video is correctly centred and scaled.
-    o	Loads the corresponding .wav audio file and routes it to a specific external sound card (e.g., SB Omni Surround) using PsychPortAudio.
+    -	Opens the selected muted video using Screen('OpenMovie').
+    -	Calculates display rectangles for both the main (win) and preview (preview_win) windows to ensure the video is correctly centred and scaled.
+    -	Loads the corresponding .wav audio file and routes it to a specific external sound card (e.g., SB Omni Surround) using PsychPortAudio.
 -	**Synchronized Playback**:
-    o	Starts both video and audio playback.
-    o	Enters a loop that displays the video frame-by-frame on both screens, rewinding automatically at the end of the clip to play indefinitely.
+    -	Starts both video and audio playback.
+    -	Enters a loop that displays the video frame-by-frame on both screens, rewinding automatically at the end of the clip to play indefinitely.
 -	**Reward functionality**:
-    o	If the video is flagged as a reward video then loads a random movie and sets the playback to be within the first 10-30% of the movie. This skips any opening credits, while making it relatively quick to load.
-    o	Plays the video with synchronised audio for the reward_duration set by the user (current default 15 seconds). Then auto closes and continues. 
+    -	If the video is flagged as a reward video then loads a random movie and sets the playback to be within the first 10-30% of the movie. This skips any opening credits, while making it relatively quick to load.
+    -	Plays the video with synchronised audio for the reward_duration set by the user (current default 15 seconds). Then auto closes and continues. 
 -	**User Interaction**:
-    o	Exits the video loop only when the TAB key is pressed, allowing manual control over when the task proceeds.
+    -	Exits the video loop only when the TAB key is pressed, allowing manual control over when the task proceeds.
 -	**Clean-Up**:
-    o	Stops and closes the video and audio resources.
-    o	Clears the screen to black on both windows to prevent lingering frames.
+    -	Stops and closes the video and audio resources.
+    -	Clears the screen to black on both windows to prevent lingering frames.
 -	**Returns**:
-    o	Updated Psychtoolbox window handles:
-    o	win: the main display window.
-    o	preview_win: the secondary (experimenter-facing) preview window.
-<!-- end of the list -->
+    -	Updated Psychtoolbox window handles:
+    -	win: the main display window.
+    -	preview_win: the secondary (experimenter-facing) preview window.
+<!-- end of the list --><br />
 ### run_training_bock_v2
 #### Purpose
 This function manages a multi-phase, interactive training block designed for a behavioural or psychophysical experiment involving tactile stimuli (via tactors), visual stimuli (jellyfish textures and videos), and audio instructions/rewards. It runs on Psychtoolbox and orchestrates the flow of stimuli presentation, user input, and feedback over several sequential phases.
 run_training_block_v2 delivers an immersive training session where participants learn to discriminate between vibrotactile stimuli presented on different sides (left/right) while receiving synchronous visual and audio cues. The function handles stimulus presentation, participant responses, real-time feedback, and phase transitions within one cohesive training routine.
 #### What it Does
 -	**Initialization and Setup**:
-    o	Loads a series of pre-recorded audio instructions and reward sounds. Instructions are clearly labelled and could be replaced if needed.
-    o	Opens an audio handle for playback.
-    o	Initializes control variables and phase tracking inside a tact_hist structure, which maintains state across the training.
+    -	Loads a series of pre-recorded audio instructions and reward sounds. Instructions are clearly labelled and could be replaced if needed.
+    -	Opens an audio handle for playback.
+    -	Initializes control variables and phase tracking inside a tact_hist structure, which maintains state across the training.
 -	**Training Phases 1 & 2 (Introductions)**:
-    o	Each phase introduces the participant to tactile stimulation on either the left or right side, paired with corresponding visual jellyfish stimuli.
-    o	Visual jitter (“buzz”) effects simulate vibration on screen.
-    o	Audio instructions guide the participant, played once per phase, synchronized with the tactile buzz.
-    o	Keyboard inputs allow advancing phases, skipping training, or quitting.
-    o	Uses loops to display stimuli until the participant selects a response or signals to skip/quit.
+    -	Each phase introduces the participant to tactile stimulation on either the left or right side, paired with corresponding visual jellyfish stimuli.
+    -	Visual jitter (“buzz”) effects simulate vibration on screen.
+    -	Audio instructions guide the participant, played once per phase, synchronized with the tactile buzz.
+    -	Keyboard inputs allow advancing phases, skipping training, or quitting.
+    -	Uses loops to display stimuli until the participant selects a response or signals to skip/quit.
 -	**Phase 3 (Reward Phase)**:
-    o	Plays a reward video and accompanying audio after the introductory phases.
-    o	Continues to display jittering jellyfish stimuli synchronized with tactors.
-    o	Participant input options remain consistent.
+    -	Plays a reward video and accompanying audio after the introductory phases.
+    -	Continues to display jittering jellyfish stimuli synchronized with tactors.
+    -	Participant input options remain consistent.
 -	**Phase 4 (Practice Block)**:
-    o	Presents a series of practice trials, each combining tactile buzzing, visual stimuli (jellyfish on screen with jitter), and audio prompts that cue participant attention.
-    o	Trials start only after the researcher presses the down arrow.
-    o	Tracks correct responses for feedback and performance monitoring.
-    o	Participant responses via left/right arrow keys are recorded and scored.
-    o	Implements inter-trial fixation periods featuring a rotating starfish visual to hold attention.
-    o	Carefully manages timing of buzzing, pauses, and audio prompts to avoid participant confusion.
-    o	Provides opportunity to retry the practice block if performance is unsatisfactory, controlled by the researcher via keyboard input (‘y’ to proceed, ‘n’ to repeat).
-    o	All interactions support immediate skipping or quitting.
+    -	Presents a series of practice trials, each combining tactile buzzing, visual stimuli (jellyfish on screen with jitter), and audio prompts that cue participant attention.
+    -	Trials start only after the researcher presses the down arrow.
+    -	Tracks correct responses for feedback and performance monitoring.
+    -	Participant responses via left/right arrow keys are recorded and scored.
+    -	Implements inter-trial fixation periods featuring a rotating starfish visual to hold attention.
+    -	Carefully manages timing of buzzing, pauses, and audio prompts to avoid participant confusion.
+    -	Provides opportunity to retry the practice block if performance is unsatisfactory, controlled by the researcher via keyboard input (‘y’ to proceed, ‘n’ to repeat).
+    -	All interactions support immediate skipping or quitting.
 -	**Phase 5 (Final Reward and Transition)**:
-    o	Similar structure to earlier reward phase but marks the end of training.
-    o	Final audiovisual reward and participant input phase, readying for transition to main experiment trials.
+    -	Similar structure to earlier reward phase but marks the end of training.
+    -	Final audiovisual reward and participant input phase, readying for transition to main experiment trials.
 -	**State and Flow Control**:
-    o	The function returns an exit code (code):
+    -	The function returns an exit code (code):
         ~ 0 = quit
         ~ 1 = skip training
         ~ 2 = complete training as usual
-    o	Manages internal timing and state flags to ensure stimuli, audio, and responses are synchronized and avoid premature inputs or stimuli overlap.
-    o	Uses Psychtoolbox’s video and audio capabilities with double-screen updates (main and preview windows).
-    o	Robustly handles real-time key checks and audio playback status for smooth transitions and user control.
-    o	Updates tact_hist throughout to maintain a full log of training progress, responses, and phase completions.
-<!-- end of the list -->
+    -	Manages internal timing and state flags to ensure stimuli, audio, and responses are synchronized and avoid premature inputs or stimuli overlap.
+    -	Uses Psychtoolbox’s video and audio capabilities with double-screen updates (main and preview windows).
+    -	Robustly handles real-time key checks and audio playback status for smooth transitions and user control.
+    -	Updates tact_hist throughout to maintain a full log of training progress, responses, and phase completions.
+<!-- end of the list --><br />
 ### play_tactor_stim.m
 #### Purpose
 Delivers tactile (tactor) stimulation for a single trial within the experiment. It determines the intensity levels for each tactor, fills the PsychPortAudio buffers, plays the corresponding stimuli, and records trial-specific information (e.g. intensities, correct side). Optionally sends EEG event markers for time-locking.
@@ -417,7 +417,7 @@ tact_hist (struct): Updated trial history containing:
 -	Intensity history.
 -	Correct response history.
 -	Any updates from EEG event transmission.
-<!-- end of the list -->
+<!-- end of the list --><br />
 ### play_tactor_training
 #### Purpose
 Delivers tactile training stimuli across one or more tactors (or simulates them if no hardware is connected). Configures stimulus playback and sets the correct response for each training phase. This is very similar to play_tactor_stim but specific for the training phase.
@@ -448,7 +448,7 @@ For each phase (and practice trial within phase 4), updates tact_hist.training.c
 Returns the updated tact_hist struct, with:
 -	tact_hist.training.correct_response set according to the training phase.
 -	(If practice phase) tact_hist.training.practice_trial influencing stimulus assignment.
-<!-- end of the list -->
+<!-- end of the list --><br />
 ### next_weighted_tactor_intensity.m
 #### Purpose
 Determines the next pair of tactile stimulus intensities using a weighted 2-up / 1-down staircase procedure. This adaptive method gradually increases or decreases task difficulty based on participant performance, converging on an intensity separation that targets a specific accuracy threshold.
@@ -490,7 +490,7 @@ Contains commented-out code to simulate staircase progression across multiple tr
     -	New unrounded intensities.
     -	Updated current intensities.
     -	Tracker history logs.
-<!-- end of the list -->
+<!-- end of the list --><br />
 ### is_tact_resp_correct.m
 #### Purpose
 Checks whether the participant’s selected response matches the correct response for the current trial and updates the trial history accordingly.
@@ -508,7 +508,7 @@ Checks whether the participant’s selected response matches the correct respons
     -	Updates the trial history to show the trial was incorrect.
 <!-- end of the list -->
 #### Outputs
-Returns the updated tact_hist structure, with fields in current_trial and tracker modified to reflect response correctness.
+Returns the updated tact_hist structure, with fields in current_trial and tracker modified to reflect response correctness.<br />
 ### save_jellyfish_data
 #### Purpose
 Saves participant data and trial history from a jellyfish eyetracking/tactile task session. Creates organised output folders, generates participant- and session-specific files, and stores both redundant backups and cleaned summary tables.
